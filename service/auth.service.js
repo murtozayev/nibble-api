@@ -59,7 +59,7 @@ class AuthService {
 
   async refresh(refreshToken) {
     if (!refreshToken) {
-      throw BaseError.BadRequest("RefreshToken is not defined");
+      throw BaseError.UnauthorizedError();
     }
 
     let userPayload;
