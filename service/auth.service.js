@@ -58,12 +58,8 @@ class AuthService {
   }
 
   async refresh(refreshToken) {
-    try {
-      if (refreshToken) {
-        throw BaseError.UnauthorizedError();
-      }
-    } catch (error) {
-      throw BaseError.BadRequest("Refresh Token", error);
+    if(!refreshToken) {
+      throw BaseError.UnauthorizedError()
     }
 
     let userPayload;
