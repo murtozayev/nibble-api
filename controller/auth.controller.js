@@ -10,6 +10,8 @@ class AuthController {
       res.cookie("refreshToken", data.refreshToken, {
         httpOnly: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,
+        secure: true,
+        sameSite: "None",
       });
 
       res.json(data);
@@ -27,6 +29,8 @@ class AuthController {
       res.cookie("refreshToken", data.refreshToken, {
         httpOnly: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,
+        secure: true,
+        sameSite: "None",
       });
 
       res.json(data);
@@ -51,13 +55,20 @@ class AuthController {
 
   async refresh(req, res, next) {
     try {
+
       const { refreshToken } = req.cookies;
+
+      if (!refreshToken) {
+        return res.status(400).json({ message: "refreshToken topilmadi!" });
+      }
 
       const data = await authService.refresh(refreshToken);
 
       res.cookie("refreshToken", data.refreshToken, {
         httpOnly: true,
         maxAge: 30 * 24 * 60 * 60 * 1000,
+        secure: true,
+        sameSite: "None",
       });
 
       return res.json(data);
