@@ -14,10 +14,7 @@ import os from "os";
 const app = express();
 // Middlewares
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://nibbleapp.vercel.app"
-];
+const allowedOrigins = ["https://nibbleapp.vercel.app"];
 
 app.use(
   cors({
@@ -32,6 +29,7 @@ app.use(
   })
 );
 
+app.options("*", cors());
 
 app.use(compression());
 app.use(express.json());
